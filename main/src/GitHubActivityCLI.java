@@ -1,4 +1,5 @@
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +28,54 @@ public class GitHubActivityCLI {
     }
 
     private static void displayActivities(JSONArray activities) {
+        if (activities.length() == 0) {
+            System.out.println("No recent activities found for this user.");
+            return;
+        }
+
+        System.out.println("\nLast activities: ");
+        
+        int limit = Math.min(activities.length(), 10);
+        for (int i = 0; i < limit; i++) {
+            JSONObject event = activities.getJSONObject(i);
+            String description = interpretEvent(event);
+            System.out.println("- " + description);
+        }
+    }
+
+    private static String interpretEvent(JSONObject event) {
+        String type = event.getString("type");
+        String repo = event.getJSONObject("repo").getString("name");
+        JSONObject payload = event.getJSONObject("payload");
+
+        switch (type) {
+            case "PushEvent":
+                int commits = payload.getJSONArray("commits").length();
+                return "Send" + commits + " commit(s) to " + repo;
+
+            case "IssueEvent":
+                String action = payload.getString("action");
+                return action.substring(0, 1).toUpperCase() + action.substring(1) + "a issue on " + repo;
+
+            case "PullRequestEvent":
+                String prAction = payload.getString("action");
+                return prAction.substring(0, 1).toUpperCase() + prAction.substring(1) + "a pull request on " + repo;
+
+            case "WatchEvent":
+                return "Bookmarked the repository " + repo;
+
+            case "CreateEvent":
+                return "Created " + payload.getString("ref_type") + " from " + repo;
+
+            case "DeleteEvent":
+                return "Deleted " + payload.getString("ref_type") + " from " + repo;
+
+            case "ForkEvent":
+                return "Forked " + payload.getString("ref_type") + " from " + repo;
+
+            default:
+                return "Performed action '" + type + "' on " + repo;
+        }
     }
 
     private static JSONArray fetchGitHubActivities(String username) throws Exception {
