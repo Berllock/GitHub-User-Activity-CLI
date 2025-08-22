@@ -131,6 +131,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para de
 
 ## 🙋‍♂️ Autor
 
+Este projeto foi baseado no desafio [GitHub User Activity CLI do roadmap.sh][https://roadmap.sh/projects/task-tracker](https://roadmap.sh/projects/github-user-activity)
+
 Criado como projeto educativo para demonstrar:
 - Consumo de APIs REST em Java
 - Manipulação de JSON
