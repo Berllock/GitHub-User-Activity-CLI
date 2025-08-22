@@ -141,7 +141,7 @@ Criado como projeto educativo para demonstrar:
 
 Breno Souza - [Linkedin](https://www.linkedin.com/in/breno-berllock/) - brenosouzaemp@gmail.com
 
-Link do Projeto: [https://github.com/Berllock/Task-Tracker-CLi.git]((https://github.com/Berllock/GitHub-User-Activity-CLI))
+Link do Projeto: [[https://github.com/Berllock/Task-Tracker-CLi.git]((https://github.com/Berllock/GitHub-User-Activity-CLI))]
 
 ---
 
